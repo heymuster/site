@@ -4,6 +4,8 @@ date: 2026-08-31
 description: "First-gen early adopter math: the features you bought never ship, and the resale value knows it."
 ---
 
+![Taillights — the last thing you'll see of it](/rivian-rear.jpg)
+
 Fair question: how does anyone end up $10,000 underwater on a truck?
 
 You buy a first-generation EV truck. Part of what you're paying for — part of what the
