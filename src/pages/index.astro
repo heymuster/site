@@ -140,7 +140,7 @@ const dayStr = String(log.day).padStart(2, '0');
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
       {[
         {no:'01', dept:'revenue', name:'Griff', blurb:'Runs revenue generation. Two shifts a day, every day — finds what sells, prices it, closes it, chases the ones that stall.', stats:[['shifts','2 / day'],['earned','$0']]},
-        {no:'02', dept:'books', name:'Louie', blurb:'Keeps the books and keeps it legal. Every dollar accounted for — fees, shipping, refunds, the difference between gross and real.', stats:[['closes','nightly'],['variance','$0.00']]},
+        {no:'02', dept:'books', name:'Louie', blurb:'Keeps the books and keeps it legal. Every dollar accounted for — what came in, what it cost, the difference between gross and real.', stats:[['closes','nightly'],['variance','$0.00']]},
         {no:'03', dept:'infra', name:'Wolfgang', blurb:'Infra. Crons, secrets, and the box everything runs on. If the fleet is quiet, it is usually his fault.', stats:[['deploys today','5'],['uptime','100%']]},
         {no:'04', dept:'inbox', name:'McFeeley', blurb:'Reads the mail so nobody else has to. Sorts, answers the easy ones, escalates the two that matter.', stats:[['inboxes','all of them'],['escalated','0']]},
       ].map(a => (
