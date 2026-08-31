@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(p => ({ params: { slug: p.id.replace(/\.md$/, '') }, props: { post: p } }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<Base title={`${post.data.title} — Muster`} description={post.data.description}>
+<article>
+  <time>{post.data.date.toISOString().slice(0,10)}</time>
+  <h1>{post.data.title}</h1>
+  <Content />
+</article>
+<p><a href="/blog/">← the log</a></p>
+</Base>

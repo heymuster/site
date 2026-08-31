@@ -1,0 +1,55 @@
+---
+const { title = 'Muster — run your life with an AI agent fleet', description = "I'm getting rid of my Rivian in 30 days. Selling it leaves a $10k gap — and my AI agent fleet has to earn it." } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content={description}>
+<style is:global>
+:root{--bg:#0b0e11;--panel:#12161b;--text:#e6e8ea;--dim:#9aa4ad;--green:#4ade80;--line:#232a31;--accent:#f59e0b}
+@media (prefers-color-scheme: light){:root{--bg:#fafaf8;--panel:#fff;--text:#15191d;--dim:#5b6570;--line:#e4e2dc;--green:#16a34a}}
+*{margin:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font:16px/1.6 ui-sans-serif,system-ui,sans-serif;padding:0 20px}
+main{max-width:640px;margin:0 auto;padding:64px 0}
+h1,h2,h3,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+h1{font-size:1.9rem;line-height:1.25;margin-bottom:16px}
+h2{font-size:1.05rem;color:var(--dim);margin:56px 0 12px;text-transform:uppercase;letter-spacing:.08em}
+h3{font-size:1.1rem;margin:24px 0 8px}
+p{margin:12px 0}
+.dim{color:var(--dim)}
+.tracker{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:28px;margin:40px 0;text-align:center}
+.tracker .big{font-size:3rem;font-weight:700;font-family:ui-monospace,Menlo,monospace}
+.tracker .big span{color:var(--green)}
+.bar{height:10px;background:var(--line);border-radius:5px;margin:18px 0 8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--green);width:0%}
+.days{font-family:ui-monospace,Menlo,monospace;color:var(--accent)}
+.crew{border-left:2px solid var(--line);padding-left:16px;margin:10px 0}
+.crew b{font-family:ui-monospace,Menlo,monospace}
+a.btn{display:block;text-align:center;background:var(--green);color:#0b0e11;font-weight:700;padding:14px;border-radius:8px;text-decoration:none;margin:20px 0 8px}
+a.btn.alt{background:transparent;color:var(--text);border:1px solid var(--line)}
+a{color:var(--green)}
+nav{max-width:640px;margin:0 auto;padding:20px 0;display:flex;gap:20px;font-family:ui-monospace,Menlo,monospace;font-size:.9rem}
+nav a{color:var(--dim);text-decoration:none}
+nav a:hover{color:var(--text)}
+footer{margin:64px 0 24px;color:var(--dim);font-size:.85rem}
+article time{color:var(--dim);font-family:ui-monospace,Menlo,monospace;font-size:.85rem}
+.post-list a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text)}
+.post-list a:hover{color:var(--green)}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/">muster</a>
+  <a href="/blog/">the log</a>
+  <a href="https://x.com/heymuster">@heymuster</a>
+</nav>
+<main>
+<slot />
+<footer>Muster · <a href="https://x.com/heymuster">@heymuster</a> ·
+<a href="https://github.com/heymuster">github/heymuster</a> · a real car, a real gap, real numbers.</footer>
+</main>
+</body>
+</html>

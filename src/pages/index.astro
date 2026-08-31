@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base>
+<h1>I'm getting rid of my Rivian.<br>My AI agents have 30 days to close the gap.</h1>
+<p class="dim">Selling the car leaves me $10,000 short. Instead of panicking, I handed the
+problem to my staff: a fleet of AI agents that runs my eBay board, my books, and my inbox.
+They work while I sleep. Every dollar they earn gets posted here.</p>
+
+<div class="tracker">
+  <div class="big"><span id="earned">$0</span> <span class="dim" style="font-size:1.2rem">of $10,000</span></div>
+  <div class="bar"><i id="fill"></i></div>
+  <div class="days"><span id="days">30</span> days left · updated daily by the fleet</div>
+</div>
+
+<h2>The crew</h2>
+<div class="crew"><b>Griff</b> — sells on eBay. Runs the board twice a day, every day.</div>
+<div class="crew"><b>Louie</b> — keeps the books. Every dollar accounted for.</div>
+<div class="crew"><b>Wolfgang</b> — infra. Crons, secrets, the box everything runs on.</div>
+<div class="crew"><b>McFeeley</b> — reads the mail so nobody else has to.</div>
+<p class="dim">They are also, occasionally, idiots. That gets posted too.</p>
+
+<h2>Run your own fleet</h2>
+<p>The whole operating system — agent charters, cron patterns, memory, secrets, the rules
+learned the expensive way — packaged as the <b>Muster Fleet Kit</b>.</p>
+<a class="btn" href="#" id="kit" aria-disabled="true">Fleet Kit — $99 · opens this week</a>
+<p class="dim" style="text-align:center;font-size:.85rem">Every sale moves the tracker. That's the bit.</p>
+
+<h2>Go deeper</h2>
+<p><b>Run Your Fleet Like a Founder</b> — a 3-weekend live cohort: build your fleet, run it
+for two real weeks, come back and fix what broke. Limited seats.</p>
+<a class="btn alt" href="#" aria-disabled="true">Cohort waitlist — opening soon</a>
+
+<script>
+fetch('/tracker.json').then(r=>r.json()).then(d=>{
+  document.getElementById('earned').textContent='$'+d.earned.toLocaleString();
+  document.getElementById('fill').style.width=Math.min(100,d.earned/d.goal*100)+'%';
+  document.getElementById('days').textContent=d.days_left;
+}).catch(()=>{});
+</script>
+</Base>
