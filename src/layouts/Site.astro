@@ -4,10 +4,10 @@ export interface Props {
   description: string;
   path: string;
   ogTitle?: string;
-  kicker?: string;
+  narrow?: boolean;
   schema?: unknown;
 }
-const { title, description, path, ogTitle, schema } = Astro.props;
+const { title, description, path, ogTitle, narrow, schema } = Astro.props;
 const site = 'https://heymuster.com';
 const canonical = site + path;
 const nav = [
@@ -46,6 +46,7 @@ const baseSchema = {
 <meta name="description" content={description}>
 <link rel="canonical" href={canonical}>
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="theme-color" content="#f4f1e8">
 <meta property="og:type" content="website">
 <meta property="og:url" content={canonical}>
 <meta property="og:site_name" content="Muster">
@@ -62,48 +63,102 @@ const baseSchema = {
 <meta name="twitter:image" content={site + '/og.png'}>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<set:html value={`<script type="application/ld+json">${JSON.stringify(baseSchema)}</script>`} />
-{schema && <set:html value={`<script type="application/ld+json">${JSON.stringify(schema)}</script>`} />}
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json" set:html={JSON.stringify(baseSchema)}></script>
+{schema && <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>}
 <style is:global>
-  * { box-sizing: border-box; margin: 0; }
-  html, body { padding: 0; }
-  body { background:#f4f1e8; color:#1d3a5f; font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace; -webkit-font-smoothing:antialiased; }
-  a { color:#1d3a5f; text-decoration:none; border-bottom:1px solid rgba(29,58,95,.3); }
-  a:hover { color:#6b2323; border-bottom-color:#6b2323; }
-  input { font-family:inherit; }
-  @keyframes musterBlink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
-  .wrap { min-height:100vh; padding:0 clamp(16px,4vw,32px); overflow-x:hidden; }
-  .inner { max-width:1000px; margin:0 auto; }
-  .inner.narrow { max-width:680px; }
-  header.top { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:10px 24px; padding:22px 0 12px; border-bottom:3px double #1d3a5f; }
-  nav.top { display:flex; flex-wrap:wrap; gap:8px 22px; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(29,58,95,.55); }
-  nav.top a { border:none; }
-  nav.top a[aria-current="page"] { color:#6b2323; border-bottom:1px solid #6b2323; }
-  .kicker { font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:rgba(29,58,95,.45); }
-  .card { border:1px solid #1d3a5f; background:#fffdf6; display:flex; flex-direction:column; box-shadow:3px 3px 0 rgba(29,58,95,.15); transition:transform 120ms ease, box-shadow 120ms ease; }
-  .card:hover { transform:translate(-2px,-2px); box-shadow:5px 5px 0 rgba(29,58,95,.22); }
-  .btn-primary { display:block; text-align:center; min-height:44px; padding:13px 18px; border:1px solid #1d3a5f; background:#1d3a5f; color:#f4f1e8; font-size:11.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; }
-  .btn-primary:hover { background:#6b2323; border-color:#6b2323; color:#f4f1e8; }
-  .btn-ghost { display:block; text-align:center; min-height:44px; padding:13px 18px; border:1px solid #1d3a5f; background:transparent; color:#1d3a5f; font-size:11.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; }
-  .btn-ghost:hover { background:#1d3a5f; color:#f4f1e8; }
-  .statline { display:flex; justify-content:space-between; gap:10px; }
-  .statline .k { color:rgba(29,58,95,.5); }
-  .statline .v { font-variant-numeric:tabular-nums; font-weight:600; }
-  h2.sec { font-size:12.5px; font-weight:600; letter-spacing:.24em; text-transform:uppercase; }
-  .sechead { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:6px 20px; border-bottom:1px solid rgba(29,58,95,.35); padding-bottom:10px; margin-bottom:20px; }
-  .sechead span { font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:rgba(29,58,95,.45); }
-  section { padding:clamp(40px,6.5vw,60px) 0 0; }
+  :root {
+    --paper:#f4f1e8;
+    --card:#fffdf6;
+    --ink:#16283f;
+    --ink-80:rgba(22,40,63,.80);
+    --ink-60:rgba(22,40,63,.60);
+    --ink-45:rgba(22,40,63,.45);
+    --line:rgba(22,40,63,.22);
+    --line-solid:#16283f;
+    --accent:#6b2323;
+    --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  * { box-sizing:border-box; margin:0; }
+  html { -webkit-text-size-adjust:100%; }
+  body {
+    background:var(--paper); color:var(--ink);
+    font-family:var(--sans); font-size:16px; line-height:1.65;
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  }
+  a { color:var(--ink); text-decoration:underline; text-decoration-color:var(--line); text-underline-offset:3px; }
+  a:hover { color:var(--accent); text-decoration-color:var(--accent); }
+
+  /* ---- type scale: sans for reading, mono reserved for labels and figures ---- */
+  h1 { font-size:clamp(30px,5.4vw,45px); line-height:1.12; font-weight:600; letter-spacing:-.021em; text-wrap:balance; }
+  h2 { font-size:clamp(21px,3.4vw,27px); line-height:1.25; font-weight:600; letter-spacing:-.014em; text-wrap:balance; }
+  h3 { font-size:17px; line-height:1.35; font-weight:600; letter-spacing:-.008em; }
+  p  { text-wrap:pretty; }
+  .lede { font-size:clamp(16.5px,2.2vw,18.5px); line-height:1.62; color:var(--ink-80); }
+  .body { font-size:15.5px; line-height:1.7; color:var(--ink-80); }
+  .small { font-size:14px; line-height:1.6; color:var(--ink-60); }
+  .label {
+    font-family:var(--mono); font-size:11px; font-weight:500;
+    letter-spacing:.15em; text-transform:uppercase; color:var(--ink-45);
+  }
+  .num { font-family:var(--mono); font-variant-numeric:tabular-nums; }
+
+  /* ---- layout ---- */
+  .wrap { min-height:100vh; padding:0 clamp(18px,4vw,32px); overflow-x:hidden; }
+  .inner { max-width:1020px; margin:0 auto; }
+  .inner.narrow { max-width:672px; }
+  section { padding:clamp(46px,7vw,76px) 0 0; }
+
+  header.top {
+    display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;
+    gap:12px 28px; padding:22px 0 14px; border-bottom:2px solid var(--line-solid);
+  }
+  .brand { font-family:var(--mono); font-size:19px; font-weight:600; letter-spacing:.24em; text-transform:uppercase; text-decoration:none; }
+  nav.top { display:flex; flex-wrap:wrap; gap:6px 26px; }
+  nav.top a {
+    font-family:var(--mono); font-size:12px; font-weight:500; letter-spacing:.06em;
+    color:var(--ink-60); text-decoration:none; padding-bottom:2px; border-bottom:2px solid transparent;
+  }
+  nav.top a:hover { color:var(--ink); }
+  nav.top a[aria-current="page"] { color:var(--ink); border-bottom-color:var(--accent); }
+
+  /* ---- components ---- */
+  .card { display:block; width:100%; border:1px solid var(--line-solid); background:var(--card); }
+  .sechead { margin-bottom:22px; }
+  .sechead .label { display:block; margin-bottom:7px; }
+  .sechead p { margin-top:8px; max-width:60ch; }
+
+  .btn { display:inline-flex; align-items:center; justify-content:center; text-align:center;
+    min-height:48px; padding:14px 22px; font-family:var(--mono); font-size:12.5px; font-weight:600;
+    letter-spacing:.08em; text-transform:uppercase; text-decoration:none; border:1px solid var(--line-solid); }
+  /* Doubled class + literal colours. Kept after the <set:html> bug that nested every
+     section inside nav.top, where `nav.top a` outranked `.btn-primary` and the label
+     rendered ink-on-ink. Cheap insurance. */
+  a.btn.btn-primary, .btn.btn-primary { background:#16283f; color:#f4f1e8; border-color:#16283f; }
+  a.btn.btn-primary:hover, .btn.btn-primary:hover { background:#6b2323; border-color:#6b2323; color:#f4f1e8; }
+  a.btn.btn-ghost, .btn.btn-ghost { background:transparent; color:#16283f; border-color:#16283f; }
+  a.btn.btn-ghost:hover, .btn.btn-ghost:hover { background:#16283f; color:#f4f1e8; border-color:#16283f; }
+  a.btn.btn-light, .btn.btn-light { background:#f4f1e8; color:#16283f; border-color:#f4f1e8; }
+  a.btn.btn-light:hover, .btn.btn-light:hover { background:#fff; color:#6b2323; border-color:#fff; }
+
+  .statline { display:flex; justify-content:space-between; gap:12px; align-items:baseline;
+    font-family:var(--mono); font-size:12.5px; }
+  .statline .k { color:var(--ink-45); letter-spacing:.04em; }
+  .statline .v { font-variant-numeric:tabular-nums; font-weight:600; color:var(--ink); }
+
+  footer.site { margin-top:clamp(56px,8vw,88px); border-top:2px solid var(--line-solid);
+    padding:20px 0 34px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px 24px; }
+  footer.site a, footer.site span { font-family:var(--mono); font-size:12px; color:var(--ink-60); }
+  footer.site a { text-decoration:none; }
+  footer.site a:hover { color:var(--accent); }
 </style>
 </head>
 <body>
-<div class="wrap"><div class={Astro.props.narrow ? 'inner narrow' : 'inner'}>
+<div class="wrap"><div class={narrow ? 'inner narrow' : 'inner'}>
 
   <header class="top">
-    <div style="display:flex;align-items:baseline;gap:14px;">
-      <a href="/" style="border:none;font-size:clamp(17px,4.4vw,21px);font-weight:600;letter-spacing:.26em;text-transform:uppercase;">muster</a>
-      <span style="font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(29,58,95,.5);">run a fleet</span>
-    </div>
+    <a class="brand" href="/">Muster</a>
     <nav class="top" aria-label="Primary">
       {nav.map(n => (
         <a href={n.href} aria-current={path === n.href || (n.href !== '/' && path.startsWith(n.href)) ? 'page' : undefined}>{n.label}</a>
@@ -113,15 +168,15 @@ const baseSchema = {
 
   <slot />
 
-  <footer style="margin-top:clamp(44px,6vw,64px);border-top:3px double #1d3a5f;padding:16px 0 28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(29,58,95,.55);">
+  <footer class="site">
     <span>Muster</span>
-    <div style="display:flex;flex-wrap:wrap;gap:8px 18px;">
-      <a href="/log">the log</a>
-      <a href="/challenge">the challenge</a>
+    <div style="display:flex;flex-wrap:wrap;gap:10px 22px;">
+      <a href="/">Fleet Kit</a>
+      <a href="/log">The Log</a>
+      <a href="/challenge">The Challenge</a>
       <a href="https://x.com/heymuster">@heymuster</a>
-      <a href="https://github.com/heymuster">github</a>
     </div>
-    <span style="color:rgba(29,58,95,.4);">a real car, a real gap, real numbers.</span>
+    <span style="color:var(--ink-45);">A real car, a real gap, real numbers.</span>
   </footer>
 
 </div></div>

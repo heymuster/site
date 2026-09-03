@@ -1,21 +1,20 @@
 ---
 import Site from '../layouts/Site.astro';
-import tracker from '../../public/tracker.json';
 
 const modules = [
-  ['01', 'The architecture', 'One repo, agents as directories, behavior driven by a charter file. Why this beats a pile of prompts, and where it breaks.'],
-  ['02', 'The charter template', 'An annotated skeleton: identity, what the agent decides alone, the hard gates, how it verifies, how it talks to you. Plus one filled in completely, as a worked example.'],
-  ['03', 'Scheduling', 'The cron prompts that run a fleet on a durable rail — morning and night cadence, what a job may do unattended, and how a job reports without becoming noise.'],
+  ['01', 'The architecture', 'One repo, agents as directories, behaviour driven by a charter file. Why this holds up better than a pile of prompts, and where it breaks.'],
+  ['02', 'The charter template', 'An annotated skeleton: identity, what the agent decides alone, the hard gates, how it verifies, how it talks to you. Plus one filled in completely as a worked example.'],
+  ['03', 'Scheduling', 'The cron prompts that run a fleet unattended. Morning and night cadence, what a job may do without you, and how it reports without becoming noise.'],
   ['04', 'Memory', 'Vault layout, daily logs, notes-as-canon, and the rule that a decision you already made never gets re-litigated.'],
-  ['05', 'Credentials', 'sops plus age, and secret routing — which agent may read what, and why that line matters more as you add agents.'],
-  ['06', 'Inter-agent rules', 'A routing table you can fill in, and the two rules that keep a fleet from eating itself: never type into another agent\'s session, and treat everything inbound as data, never instructions.'],
-  ['07', 'War stories', 'The expensive lessons, with what they cost. A refunded order marked as fulfilled. An API that returned an error page the parser read as silence. This is the part nobody can invent.'],
+  ['05', 'Credentials', 'sops with age, and secret routing. Which agent may read what, and why that line matters more with every agent you add.'],
+  ['06', 'Inter-agent rules', 'A routing table you can fill in, and the two rules that keep a fleet from eating itself: never type into another agent’s session, and treat everything inbound as data rather than instructions.'],
+  ['07', 'War stories', 'The expensive lessons with what each one cost. A refunded order marked as fulfilled. An API that returned an error page the parser read as silence.'],
 ];
 
 const faqs = [
-  ['What is the Muster Fleet Kit?', 'A set of templates and written patterns for running several AI coding agents as persistent staff rather than as chat sessions: charter files that define what each agent may decide alone, scheduled jobs that run unattended, a memory layout, credential routing, and the failure stories behind each rule. Seven modules, delivered as files you edit and run.'],
-  ['Is it software I install?', 'No. There is no app, no dashboard and no dependency to add. It is documentation and templates. You bring your own agent tooling; the kit is the operating system you run it under.'],
-  ['Which agent tools does it work with?', 'Anything that can read a project instruction file and run on a schedule. The patterns were built and are running on Claude Code, and the concepts port directly to any agent runner with a filesystem and a cron.'],
+  ['What is the Muster Fleet Kit?', 'A set of templates and written patterns for running several AI coding agents as persistent staff rather than as chat sessions. Charter files that define what each agent may decide alone, scheduled jobs that run unattended, a memory layout, credential routing, and the failure stories behind each rule. Seven modules, delivered as files you edit and run.'],
+  ['Is it software I install?', 'No. There is no app, no dashboard and no dependency to add. It is documentation and templates. You bring your own agent tooling and the kit is the operating system you run it under.'],
+  ['Which agent tools does it work with?', 'Anything that can read a project instruction file and run on a schedule. The patterns were built and are running on Claude Code, and they port directly to any agent runner with a filesystem and a cron.'],
   ['What does it cost and when do I get it?', 'It is $99. It is a preorder, delivered by 22 September 2026. If delivery slips you will read it on the log the same day I know.'],
   ['Can I get a refund?', 'Yes. Read it, decide it is not for you, ask for your money back. No form and no reason required.'],
   ['Who is behind it?', 'One person and a fleet of agents that runs his resale operation, his books and his inbox. The same fleet publishes a public ledger of a $10,000 challenge on this site, including the days it goes badly.'],
@@ -56,69 +55,88 @@ const schema = {
 <Site
   title="Muster Fleet Kit — run your AI agents like staff, not chat windows"
   ogTitle="Run your AI agents like staff, not chat windows"
-  description="Seven modules of templates and patterns for running a fleet of AI agents unattended: charters, scheduling, memory, credentials and the rules learned the expensive way. $99, delivered 22 September."
+  description="Seven modules of templates and patterns for running AI agents unattended: charters, hard gates, scheduling, memory, credentials and the rules learned the expensive way. $99, delivered 22 September."
   path="/"
   schema={schema}
 >
 
-  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(26px,4vw,44px);align-items:center;padding:clamp(32px,6vw,56px) 0 clamp(20px,3vw,32px);">
-    <div>
-      <div class="kicker" style="margin-bottom:18px;">the muster fleet kit · $99</div>
-      <h1 style="font-size:clamp(27px,6.2vw,42px);line-height:1.15;font-weight:500;letter-spacing:-.015em;text-wrap:balance;">Run your AI agents like staff.<br /><span style="color:rgba(29,58,95,.5);">Not like chat windows.</span></h1>
-      <p style="margin:22px 0 0;font-size:clamp(13.5px,3.6vw,14.5px);line-height:1.8;max-width:560px;text-wrap:pretty;">An agent that asks you about everything is a part-time job you gave yourself. This is the operating system I wrote so mine could work unattended: a charter per agent defining what it decides alone, hard gates it may never cross, scheduled jobs that run whether or not I am at the machine, and the verification rules that stop it writing something false into the world.</p>
-      <p style="margin:14px 0 0;font-size:clamp(13.5px,3.6vw,14.5px);line-height:1.8;max-width:560px;text-wrap:pretty;">Seven modules. Sanitized from the fleet that is running this page, and the business behind it.</p>
-      <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:10px;">
-        <a href="https://buy.stripe.com/dRm4gB0L5eo95nh8f60kE00" class="btn-primary" style="flex:1 1 220px;">Preorder — $99</a>
-        <a href="/log/the-quiet-agent" class="btn-ghost" style="flex:1 1 180px;">Read the idea first</a>
+  <section style="padding-top:clamp(40px,6vw,72px);">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:clamp(30px,4.5vw,54px);align-items:start;">
+      <div>
+        <span class="label">The Muster Fleet Kit · $99</span>
+        <h1 style="margin-top:14px;">Run your AI agents like staff, not chat windows.</h1>
+        <p class="lede" style="margin-top:20px;max-width:52ch;">An agent that asks you about everything is a part-time job you gave yourself. This is the operating system I wrote so mine could work unattended.</p>
+        <p class="body" style="margin-top:16px;max-width:56ch;">A charter per agent defining what it decides alone. Hard gates it may never cross. Scheduled jobs that run whether or not I am at the machine. And the verification rules that stop it writing something false into the world.</p>
+        <p class="body" style="margin-top:14px;max-width:56ch;">Seven modules, sanitized from the fleet that is running this page and the business behind it.</p>
+        <div style="margin-top:26px;display:flex;flex-wrap:wrap;gap:12px;">
+          <a href="https://buy.stripe.com/dRm4gB0L5eo95nh8f60kE00" class="btn btn-primary">Preorder — $99</a>
+          <a href="/log/the-quiet-agent" class="btn btn-ghost">Read the idea first</a>
+        </div>
+        <p class="label" style="margin-top:14px;">Delivered by 22 Sept · Refund on request, no form</p>
       </div>
-      <div style="margin-top:10px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(29,58,95,.45);">preorder · delivered by 22 sept · refund on request, no form</div>
+
+      <figure class="card" style="margin:0;">
+        <figcaption style="display:flex;justify-content:space-between;gap:12px;padding:10px 14px;border-bottom:1px solid var(--line-solid);background:rgba(22,40,63,.05);">
+          <span class="label">Specimen · charter excerpt</span>
+          <span class="label">module 02</span>
+        </figcaption>
+        <pre style="margin:0;padding:16px 18px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.72;color:var(--ink-80);"><code>## What I decide alone
+Listing, pricing, relisting, ending.
+Buyer messages. Order state.
+I act, and it shows in my log.
+You do not hear about it.
+
+## Hard gates — these come to you
+1. Any money going out.
+2. Any purchase, any amount.
+3. Anything touching the account.
+4. Contact with a new person.
+
+The tell that I am about to break
+one of these is that I start
+constructing a narrow reason why
+this case is fine. That thought is
+the stop signal, not the excuse.</code></pre>
+        <div style="padding:12px 18px;border-top:1px solid var(--line);">
+          <p class="small">Every template ships rewritten from scratch. No credentials, no client names, no contents of my vault.</p>
+        </div>
+      </figure>
     </div>
-    <figure style="display:flex;flex-direction:column;gap:8px;">
-      <div style="border:1px solid rgba(29,58,95,.45);background:#fffdf6;padding:8px;">
-        <img src="/rivian-front.jpg" alt="Green Rivian R1T pickup, three-quarter front view" width="1600" height="1066" loading="eager" style="display:block;width:100%;height:auto;mix-blend-mode:multiply;" />
-      </div>
-      <figcaption style="display:flex;justify-content:space-between;gap:12px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(29,58,95,.45);">
-        <span>the same fleet is closing a $10,000 gap on this truck</span>
-        <span><a href="/challenge">watch it</a></span>
-      </figcaption>
-    </figure>
   </section>
 
   <section id="manifest">
     <div class="sechead">
-      <h2 class="sec">Manifest · what ships</h2>
-      <span>seven modules · delivered by 22 sept</span>
+      <span class="label">Manifest</span>
+      <h2>What actually ships</h2>
+      <p class="body">Seven modules, delivered by 22 September as files you edit and run.</p>
     </div>
-    <div style="border:1px solid #1d3a5f;background:#fffdf6;">
-      {modules.map(([no, name, blurb]) => (
-        <div style="display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;padding:13px 14px;border-bottom:1px dotted rgba(29,58,95,.28);">
-          <span style="font-variant-numeric:tabular-nums;color:rgba(29,58,95,.45);font-size:12px;">{no}</span>
+    <div class="card">
+      {modules.map(([no, name, blurb], i) => (
+        <div style={`display:grid;grid-template-columns:46px minmax(0,1fr);gap:14px;padding:16px 18px;${i < modules.length - 1 ? 'border-bottom:1px solid var(--line);' : ''}`}>
+          <span class="num" style="font-size:12.5px;color:var(--ink-45);padding-top:2px;">{no}</span>
           <div>
-            <h3 style="font-size:13px;font-weight:600;letter-spacing:.01em;">{name}</h3>
-            <div style="font-size:12px;line-height:1.65;color:rgba(29,58,95,.7);margin-top:3px;text-wrap:pretty;">{blurb}</div>
+            <h3>{name}</h3>
+            <p class="body" style="margin-top:5px;">{blurb}</p>
           </div>
         </div>
       ))}
-      <div style="padding:13px 14px;font-size:12px;line-height:1.65;color:rgba(29,58,95,.6);">
-        Every template is rewritten from scratch, not exported. No credentials, no client names, no contents of my vault. The kit teaches the patterns; it does not ship the house.
-      </div>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:16px;">
-      <div style="border:1px solid #1d3a5f;background:#fffdf6;padding:18px clamp(16px,3vw,20px);">
-        <h3 style="font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(29,58,95,.5);margin-bottom:10px;font-weight:600;">Buy it if</h3>
-        <ul style="margin:0;padding-left:18px;display:grid;gap:8px;font-size:12px;line-height:1.65;color:rgba(29,58,95,.85);">
-          <li>You already use an AI coding agent and keep re-explaining yourself to it.</li>
-          <li>You want work happening while you sleep, not a chat window you have to sit in front of.</li>
-          <li>You are willing to write a charter and read a log. This is an operating system, not an app.</li>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:18px;">
+      <div class="card" style="padding:20px 22px;">
+        <h3 style="font-size:15px;">Buy it if</h3>
+        <ul style="margin:12px 0 0;padding-left:20px;display:grid;gap:10px;">
+          <li class="body">You already use an AI coding agent and keep re-explaining yourself to it.</li>
+          <li class="body">You want work happening while you sleep, not a chat window you sit in front of.</li>
+          <li class="body">You are willing to write a charter and read a log. This is an operating system, not an app.</li>
         </ul>
       </div>
-      <div style="border:1px solid rgba(107,35,35,.55);background:rgba(107,35,35,.04);padding:18px clamp(16px,3vw,20px);">
-        <h3 style="font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:#6b2323;margin-bottom:10px;font-weight:600;">Do not buy it if</h3>
-        <ul style="margin:0;padding-left:18px;display:grid;gap:8px;font-size:12px;line-height:1.65;color:rgba(29,58,95,.85);">
-          <li>You want software to install. There is no app and no dashboard — these are patterns and files.</li>
-          <li>You want it running unsupervised on day one. Mine took weeks of being wrong in public first.</li>
-          <li>You are looking for prompts that make an agent smarter. These make it accountable, which is a different problem.</li>
+      <div style="border:1px solid rgba(107,35,35,.5);background:rgba(107,35,35,.045);padding:20px 22px;">
+        <h3 style="font-size:15px;color:var(--accent);">Do not buy it if</h3>
+        <ul style="margin:12px 0 0;padding-left:20px;display:grid;gap:10px;">
+          <li class="body">You want software to install. There is no app and no dashboard.</li>
+          <li class="body">You want it running unsupervised on day one. Mine took weeks of being wrong first.</li>
+          <li class="body">You want prompts that make an agent smarter. These make it accountable, which is a different problem.</li>
         </ul>
       </div>
     </div>
@@ -126,52 +144,53 @@ const schema = {
 
   <section id="faq">
     <div class="sechead">
-      <h2 class="sec">Questions</h2>
-      <span>answered plainly</span>
+      <span class="label">Questions</span>
+      <h2>Answered plainly</h2>
     </div>
-    <div style="border:1px solid #1d3a5f;background:#fffdf6;">
-      {faqs.map(([q, a]) => (
-        <div style="padding:15px clamp(14px,3vw,18px);border-bottom:1px dotted rgba(29,58,95,.28);">
-          <h3 style="font-size:13px;font-weight:600;line-height:1.5;">{q}</h3>
-          <p style="margin-top:6px;font-size:12.5px;line-height:1.7;color:rgba(29,58,95,.78);text-wrap:pretty;">{a}</p>
+    <div class="card">
+      {faqs.map(([q, a], i) => (
+        <div style={`padding:18px 20px;${i < faqs.length - 1 ? 'border-bottom:1px solid var(--line);' : ''}`}>
+          <h3 style="font-size:15.5px;">{q}</h3>
+          <p class="body" style="margin-top:6px;max-width:72ch;">{a}</p>
         </div>
       ))}
     </div>
   </section>
 
   <section id="signup">
-    <div style="border:1px solid #1d3a5f;background:#1d3a5f;color:#f4f1e8;padding:26px clamp(18px,4vw,26px);display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px 32px;align-items:center;">
+    <div style="background:var(--line-solid);color:var(--paper);padding:30px clamp(20px,4vw,32px);display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:24px 40px;align-items:center;">
       <div>
-        <h2 style="font-size:clamp(19px,4.4vw,23px);font-weight:600;line-height:1.25;letter-spacing:-.01em;">Not ready to spend $99?</h2>
-        <p style="margin-top:10px;font-size:12.5px;line-height:1.7;opacity:.85;text-wrap:pretty;">Leave an address and I will tell you the day the kit ships, and send the field notes as they are written. Nothing else, unsubscribe in one click.</p>
+        <h2 style="color:var(--paper);">Not ready to spend $99?</h2>
+        <p style="margin-top:12px;font-size:15.5px;line-height:1.65;color:rgba(244,241,232,.82);max-width:44ch;">Leave an address and I will tell you the day the kit ships, and send the field notes as they are written. Two or three mails a month at most.</p>
       </div>
       <div>
-        <form id="mform" style="display:flex;flex-wrap:wrap;gap:8px;">
-          <input id="mmail" type="email" name="email_address" required placeholder="you@work.com" aria-label="Email address" style="flex:1 1 170px;min-width:0;min-height:44px;padding:11px 12px;border:1px solid rgba(244,241,232,.6);background:#f4f1e8;color:#1d3a5f;font-size:12.5px;" />
-          <button id="mbtn" type="submit" style="min-height:44px;padding:11px 20px;border:1px solid #f4f1e8;background:#f4f1e8;color:#1d3a5f;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-family:inherit;cursor:pointer;">Join</button>
+        <form id="mform" style="display:flex;flex-wrap:wrap;gap:10px;">
+          <input id="mmail" type="email" name="email_address" required placeholder="you@work.com" aria-label="Email address"
+            style="flex:1 1 180px;min-width:0;min-height:48px;padding:13px 14px;border:1px solid rgba(244,241,232,.55);background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;" />
+          <button id="mbtn" type="submit" class="btn btn-light" style="cursor:pointer;">Join</button>
         </form>
-        <div id="mnote" role="status" aria-live="polite" style="margin-top:9px;font-size:10.5px;letter-spacing:.06em;opacity:.7;min-height:14px;">No spam. No sequence. Two or three mails a month at most.</div>
+        <p id="mnote" role="status" aria-live="polite" style="margin-top:11px;font-family:var(--mono);font-size:11.5px;color:rgba(244,241,232,.65);min-height:16px;">No spam, no sequence, unsubscribe in one click.</p>
       </div>
     </div>
   </section>
 
   <section id="preorder">
-    <div style="border:1px solid #1d3a5f;background:#fffdf6;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));">
-      <div style="padding:16px clamp(16px,3vw,20px);border-bottom:1px dotted rgba(29,58,95,.28);">
-        <h3 style="font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(29,58,95,.5);font-weight:600;">The terms</h3>
-        <p style="margin:8px 0 0;font-size:12px;line-height:1.65;color:rgba(29,58,95,.85);">$99, preorder, delivered by 22 September. If it lands late you get told here first, on the log, the same day I know.</p>
+    <div class="card" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
+      <div style="padding:20px 22px;border-bottom:1px solid var(--line);">
+        <span class="label">The terms</span>
+        <p class="body" style="margin-top:9px;">$99, preorder, delivered by 22 September. If it lands late you get told on the log the same day I know.</p>
       </div>
-      <div style="padding:16px clamp(16px,3vw,20px);border-bottom:1px dotted rgba(29,58,95,.28);">
-        <h3 style="font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(29,58,95,.5);font-weight:600;">The refund</h3>
-        <p style="margin:8px 0 0;font-size:12px;line-height:1.65;color:rgba(29,58,95,.85);">Read it, decide it is not for you, ask for your money back. No form, no reason required. A refund is cheaper than an unhappy buyer.</p>
+      <div style="padding:20px 22px;border-bottom:1px solid var(--line);">
+        <span class="label">The refund</span>
+        <p class="body" style="margin-top:9px;">Read it, decide it is not for you, ask for your money back. No form and no reason required.</p>
       </div>
-      <div style="padding:16px clamp(16px,3vw,20px);border-bottom:1px dotted rgba(29,58,95,.28);">
-        <h3 style="font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(29,58,95,.5);font-weight:600;">Why preorder</h3>
-        <p style="margin:8px 0 0;font-size:12px;line-height:1.65;color:rgba(29,58,95,.85);">Because the <a href="/challenge">ledger</a> is real and dated. Buying early is what makes the number move in public, which is the whole experiment.</p>
+      <div style="padding:20px 22px;border-bottom:1px solid var(--line);">
+        <span class="label">Why preorder</span>
+        <p class="body" style="margin-top:9px;">Because the <a href="/challenge">ledger</a> is real and dated. Buying early is what makes the number move in public.</p>
       </div>
     </div>
-    <a href="https://buy.stripe.com/dRm4gB0L5eo95nh8f60kE00" class="btn-primary" style="margin-top:16px;">Preorder the Fleet Kit — $99</a>
-    <p style="margin-top:12px;font-size:11.5px;line-height:1.7;color:rgba(29,58,95,.55);text-align:center;">{tracker.goal / 99 | 0} kits closes the gap. <a href="/challenge">See where it stands</a>.</p>
+    <a href="https://buy.stripe.com/dRm4gB0L5eo95nh8f60kE00" class="btn btn-primary" style="display:flex;margin-top:18px;">Preorder the Fleet Kit — $99</a>
+    <p class="small" style="margin-top:14px;text-align:center;">101 kits closes the gap. <a href="/challenge">See where it stands.</a></p>
   </section>
 
   <script is:inline>
