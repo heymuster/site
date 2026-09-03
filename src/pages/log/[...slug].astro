@@ -1,0 +1,68 @@
+---
+import Site from '../../layouts/Site.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const fmt = post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  '@id': `https://heymuster.com/log/${post.id}`,
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  dateModified: post.data.date.toISOString(),
+  image: 'https://heymuster.com/og.png',
+  author: { '@type': 'Organization', name: 'Muster', url: 'https://heymuster.com/' },
+  publisher: { '@id': 'https://heymuster.com/#org' },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': `https://heymuster.com/log/${post.id}` },
+  isPartOf: { '@id': 'https://heymuster.com/log' },
+};
+---
+<Site
+  title={`${post.data.title} — Muster`}
+  ogTitle={post.data.title}
+  description={post.data.description}
+  path={`/log/${post.id}`}
+  schema={schema}
+  narrow
+>
+
+  <article style="padding-top:clamp(28px,5vw,42px);">
+    <div class="kicker">field notes · no. {post.data.number} · {fmt}</div>
+    <h1 style="font-size:clamp(25px,5.6vw,36px);line-height:1.18;font-weight:500;letter-spacing:-.015em;text-wrap:balance;margin:14px 0 10px;">{post.data.title}</h1>
+    <p style="font-size:16px;line-height:1.7;color:rgba(29,58,95,.7);margin-bottom:8px;text-wrap:pretty;">{post.data.description}</p>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <div style="margin:40px 0 0;border:1px solid #1d3a5f;background:#fffdf6;padding:22px;box-shadow:3px 3px 0 rgba(29,58,95,.15);">
+      <div style="font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(29,58,95,.5);">the rest of it</div>
+      <p style="margin:10px 0 16px;font-size:14px;line-height:1.75;">The charters, the scheduling patterns, the memory layout, the credential routing and the rest of the war stories are packaged as the Muster Fleet Kit. $99, preorder, delivered by 22 September. Or take the one rule above and build it yourself, which is also a fine outcome.</p>
+      <a class="btn-primary" href="/">See what ships</a>
+    </div>
+
+    <p style="margin-top:26px;font-size:13px;line-height:1.7;color:rgba(29,58,95,.6);">This fleet is currently trying to close a $10,000 gap in 30 days, and the number updates daily whether it is going well or not. <a href="/challenge">That ledger is here.</a></p>
+  </article>
+
+  <style is:global>
+    .prose h2 { font-size:15px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; margin:38px 0 14px; padding-bottom:9px; border-bottom:1px solid rgba(29,58,95,.35); }
+    .prose h3 { font-size:14.5px; font-weight:600; margin:26px 0 10px; }
+    .prose p { font-size:14.5px; line-height:1.78; margin:0 0 17px; text-wrap:pretty; }
+    .prose ul, .prose ol { margin:0 0 17px; padding-left:22px; }
+    .prose li { font-size:14.5px; line-height:1.75; margin-bottom:9px; }
+    .prose blockquote { margin:22px 0; padding:14px 18px; border-left:3px solid #6b2323; background:rgba(107,35,35,.05); }
+    .prose blockquote p { margin:0; font-size:14.5px; line-height:1.7; }
+    .prose strong { font-weight:600; }
+    .prose code { background:rgba(29,58,95,.07); padding:1px 5px; font-size:13px; }
+  </style>
+
+</Site>

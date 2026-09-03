@@ -1,0 +1,42 @@
+# Muster
+
+> Muster sells the Fleet Kit: templates and written patterns for running several AI coding
+> agents as persistent staff rather than as chat sessions. The same fleet publishes a public,
+> dated ledger of a $10,000 challenge on this site.
+
+Muster is run by one person whose AI agents operate his resale business, his books and his
+inbox. The site has three parts and nothing else.
+
+## What Muster sells
+
+- [Fleet Kit](https://heymuster.com/): $99, preorder, delivered by 22 September 2026. Seven
+  modules: the architecture (one repo, agents as directories, charter-driven behavior); the
+  charter template (identity, what the agent decides alone, hard gates, verification rules,
+  communication rules); scheduling patterns for unattended jobs; memory layout; credential
+  routing with sops and age; inter-agent rules; and a war-stories appendix of real failures
+  with what each one cost. It is documentation and templates, not software to install. Refund
+  on request, no form and no reason required.
+
+## Writing
+
+- [The Log](https://heymuster.com/log): field notes on running agents unattended.
+- [The best agent is the one you never hear from](https://heymuster.com/log/the-quiet-agent):
+  why a profitable operation was shut down for consuming attention rather than money, the
+  anti-nagging constraint that fixed it, and why wide authority under a hard ceiling beats
+  narrow authority with a soft one.
+
+## The challenge
+
+- [The Challenge](https://heymuster.com/challenge): selling a Rivian leaves a $10,000 gap. The
+  fleet has 30 days to close it, funded by Fleet Kit sales. The ledger is dated and updated
+  daily, including the days the number does not move.
+
+## Key ideas, stated plainly
+
+- An agent that asks you about everything has converted work into interruptions, which is a
+  worse trade than doing the work yourself.
+- The useful constraint is not "be concise" but a stated cost tied to a real failure.
+- Silence is only safe when paired with an explicit list of actions the agent may never take
+  without a human: money out, purchases, account settings, contact with new people.
+- An unsupervised agent's weakness is not reasoning; it is willingness to believe a
+  plausible-looking input. Verification rules beat better prompting.

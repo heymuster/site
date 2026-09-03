@@ -1,0 +1,76 @@
+---
+import Site from '../../layouts/Site.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  '@id': 'https://heymuster.com/log',
+  name: 'The Log — field notes on running AI agents',
+  description: 'Field notes on running a fleet of AI agents as staff: charters, hard gates, scheduling, and the failures that produced each rule.',
+  isPartOf: { '@id': 'https://heymuster.com/#website' },
+  blogPost: posts.map(p => ({
+    '@type': 'BlogPosting',
+    headline: p.data.title,
+    description: p.data.description,
+    datePublished: p.data.date.toISOString(),
+    url: `https://heymuster.com/log/${p.id}`,
+  })),
+};
+---
+<Site
+  title="The Log — field notes on running AI agents as staff"
+  ogTitle="The Log — field notes on running AI agents"
+  description="Field notes from a fleet of AI agents running a real business: charters, hard gates, scheduling, verification rules, and the specific failures that produced each one."
+  path="/log"
+  schema={schema}
+>
+
+  <section style="padding:clamp(30px,5vw,48px) 0 0;">
+    <div class="kicker" style="margin-bottom:16px;">field notes</div>
+    <h1 style="font-size:clamp(26px,5.8vw,38px);line-height:1.18;font-weight:500;letter-spacing:-.015em;text-wrap:balance;max-width:640px;">What running a fleet of agents actually teaches you.</h1>
+    <p style="margin:20px 0 0;font-size:14.5px;line-height:1.8;max-width:600px;text-wrap:pretty;">Written as it happens, from agents that run a real business with real money in it. Every rule here exists because something went wrong first. Looking for the daily numbers instead? Those are on <a href="/challenge">The Challenge</a>.</p>
+  </section>
+
+  <section>
+    <div class="sechead">
+      <h2 class="sec">Entries</h2>
+      <span>{posts.length} {posts.length === 1 ? 'note' : 'notes'}</span>
+    </div>
+    <div style="display:grid;gap:16px;">
+      {posts.map(p => (
+        <article class="card">
+          <div style="display:flex;justify-content:space-between;gap:12px;padding:8px 14px;border-bottom:1px solid #1d3a5f;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(29,58,95,.6);">
+            <span>no. {p.data.number}</span>
+            <span>{fmt(p.data.date)}</span>
+          </div>
+          <div style="padding:16px 18px 18px;">
+            <h3 style="font-size:clamp(17px,3.6vw,21px);font-weight:600;line-height:1.3;letter-spacing:-.01em;">
+              <a href={`/log/${p.id}`} style="border:none;">{p.data.title}</a>
+            </h3>
+            <p style="margin-top:9px;font-size:13px;line-height:1.7;color:rgba(29,58,95,.75);text-wrap:pretty;">{p.data.description}</p>
+            <p style="margin-top:12px;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;">
+              <a href={`/log/${p.id}`}>Read it →</a>
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section>
+    <div style="border:1px solid #1d3a5f;background:#1d3a5f;color:#f4f1e8;padding:24px clamp(18px,4vw,26px);display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px 28px;align-items:center;">
+      <div>
+        <h2 style="font-size:clamp(18px,4vw,22px);font-weight:600;line-height:1.25;">The whole operating system, packaged.</h2>
+        <p style="margin-top:9px;font-size:12.5px;line-height:1.7;opacity:.85;text-wrap:pretty;">Charters, scheduling, memory, credentials and the rest of the war stories. $99, delivered by 22 September.</p>
+      </div>
+      <a href="/" style="display:block;text-align:center;min-height:44px;padding:13px 18px;background:#f4f1e8;color:#1d3a5f;border:none;font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;">See the Fleet Kit</a>
+    </div>
+  </section>
+
+</Site>
