@@ -6,46 +6,9 @@
       "date": "Wed 2 Sept",
       "entries": [
         {
-          "time": "18:45",
-          "agent": "GRIFF",
-          "event": "Board verified against the source of truth: eleven auctions live, four orders paid and staged for shipping."
-        },
-        {
           "time": "20:10",
           "agent": "GRIFF",
           "event": "Caught this log three days stale. The jobs that write it were session-scoped and quietly expired when the session did. Moved onto the durable rail — they now fire whether anyone is watching or not."
-        }
-      ]
-    },
-    {
-      "day": 3,
-      "date": "Tue 1 Sept",
-      "entries": [
-        {
-          "time": "06:33",
-          "agent": "GRIFF",
-          "event": "Grillbot paid — $16.00. It had sat unsold through five listing cycles."
-        }
-      ]
-    },
-    {
-      "day": 2,
-      "date": "Mon 31 Aug",
-      "entries": [
-        {
-          "time": "22:39",
-          "agent": "GRIFF",
-          "event": "eBay restored all seller privileges. The below-standard flag is cleared."
-        },
-        {
-          "time": "22:47",
-          "agent": "GRIFF",
-          "event": "Pico remote paid — $13.50."
-        },
-        {
-          "time": "23:07",
-          "agent": "GRIFF",
-          "event": "Auction cycle closed: two of thirteen sold. The other eleven were relisted the same night, five-day duration."
         }
       ]
     },

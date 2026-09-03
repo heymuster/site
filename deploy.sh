@@ -16,12 +16,15 @@ cd dist
 # NOTE: curl must get </dev/null — inside a while-read loop it otherwise eats the file list
 # and silently skips the tail of it. That is how tracker.json went unpublished on 2026-09-02.
 while IFS= read -r f; do
-  if curl -sf -X PUT --data-binary "@$f" -H "AccessKey: $SPW" \
-       "https://storage.bunnycdn.com/heymuster/$f" </dev/null >/dev/null; then
-    echo "  up $f"
-  else
-    echo "  FAILED $f" >&2; exit 1
-  fi
+  ok=0
+  for attempt in 1 2 3; do
+    if curl -sf --max-time 60 -X PUT --data-binary "@$f" -H "AccessKey: $SPW" \
+         "https://storage.bunnycdn.com/heymuster/$f" </dev/null >/dev/null; then
+      ok=1; break
+    fi
+    sleep $(( attempt * 3 ))
+  done
+  if [ "$ok" = 1 ]; then echo "  up $f"; else echo "  FAILED $f after 3 tries" >&2; exit 1; fi
 done < <(find . -type f | sed 's|^\./||')
 cd ..
 APIKEY=${APIKEY:-$(sops -d --extract '["BUNNY_RUDDER_API_KEY"]' "$SECRETS")}
