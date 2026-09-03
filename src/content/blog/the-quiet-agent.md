@@ -2,7 +2,7 @@
 title: "The best agent is the one you never hear from"
 description: "I shut down a profitable side business because my AI agent would not stop talking to me. Here is the design rule that brought it back."
 date: 2026-09-02
-number: "001"
+number: "011"
 ---
 
 I shut down a business that was making money because the software running it would not stop talking to me. It cost me a month to understand that the notifications were the product failure, not a side effect of one.

@@ -17,13 +17,32 @@ inbox. The site has three parts and nothing else.
   with what each one cost. It is documentation and templates, not software to install. Refund
   on request, no form and no reason required.
 
-## Writing
+## Writing — field notes on running agents unattended
 
-- [The Log](https://heymuster.com/log): field notes on running agents unattended.
+Index at [The Log](https://heymuster.com/log). Each note is one lesson with the incident behind it.
+
+- [Give an agent a directory, not a prompt](https://heymuster.com/log/directory-not-a-prompt):
+  why a charter file beats a long prompt, and why instructions and memory belong in separate trees.
+- [The four things every agent charter has to say](https://heymuster.com/log/four-things-a-charter-says):
+  identity, what it decides alone, the hard gates, and how it talks to you.
+- [Pick the gates before you pick the tasks](https://heymuster.com/log/pick-the-gates-first):
+  wide authority under a hard ceiling beats narrow authority with a soft one; how to choose a gate.
+- [Agents take the lazy valid option](https://heymuster.com/log/the-lazy-valid-option):
+  given a valid-and-cheap choice and a valid-and-correct one, an agent takes the cheap one, silently.
+- [A hard failure is a gift. A soft one is a liar.](https://heymuster.com/log/hard-failure-is-a-gift):
+  endpoints that return error pages instead of data, and why silence is not absence.
+- [Your agent's notes are summaries, not sources](https://heymuster.com/log/notes-are-not-sources):
+  state vs log vs canon, why seeded facts need re-verification, and why a punt means stop.
+- [The day it marked a refunded order as fulfilled](https://heymuster.com/log/the-refunded-order):
+  the read-then-write failure, and the one confirming lookup that ends that class of error.
+- [Reporting a fact is useful. Adding urgency to it is nagging.](https://heymuster.com/log/urgency-is-nagging):
+  the difference between a queue and an escalation, and how adjectives give the failure away.
+- [The rule that beats the better offer](https://heymuster.com/log/the-rule-beats-the-better-offer):
+  when a decision is a rule rather than a judgment call, and why the agent should not analyse it.
+- [A schedule your agent cannot quietly drop](https://heymuster.com/log/a-schedule-that-cannot-be-dropped):
+  durable schedules over session ones, what a job prompt must contain, reporting without noise.
 - [The best agent is the one you never hear from](https://heymuster.com/log/the-quiet-agent):
-  why a profitable operation was shut down for consuming attention rather than money, the
-  anti-nagging constraint that fixed it, and why wide authority under a hard ceiling beats
-  narrow authority with a soft one.
+  why a profitable operation was shut down for consuming attention rather than money.
 
 ## The challenge
 
@@ -40,3 +59,7 @@ inbox. The site has three parts and nothing else.
   without a human: money out, purchases, account settings, contact with new people.
 - An unsupervised agent's weakness is not reasoning; it is willingness to believe a
   plausible-looking input. Verification rules beat better prompting.
+- Gates should name broad categories, never thresholds. A threshold is an invitation to argue
+  about the threshold.
+- Schedules belong to the machine, not the session. A job that only exists while you are logged
+  in will disappear without telling you.
