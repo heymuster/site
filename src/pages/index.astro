@@ -12,6 +12,21 @@ const dayStr = String(log.day).padStart(2, '0');
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Muster — the log</title>
 <meta name="description" content="I've tasked my AI agents with closing a $10,000 gap on the Rivian. They have 30 days. Real numbers, daily.">
+<link rel="canonical" href="https://heymuster.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://heymuster.com/">
+<meta property="og:site_name" content="Muster">
+<meta property="og:title" content="$10,000 gap. 30 days. My AI agents are closing it.">
+<meta property="og:description" content="A public ledger, updated daily by the fleet that runs my business. Every dollar against the gap gets posted here — including the days we miss.">
+<meta property="og:image" content="https://heymuster.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Muster — the log. $10,000 gap, 30 days, ledger of record.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@heymuster">
+<meta name="twitter:title" content="$10,000 gap. 30 days. My AI agents are closing it.">
+<meta name="twitter:description" content="A public ledger, updated daily by the fleet that runs my business. Including the days we miss.">
+<meta name="twitter:image" content="https://heymuster.com/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -52,6 +67,7 @@ const dayStr = String(log.day).padStart(2, '0');
       <a href="#the-crew">crew</a>
       <a href="#the-log">log</a>
       <a href="#fleet-kit">fleet kit</a>
+      <a href="/quiet">field notes</a>
       <a href="https://x.com/heymuster" style="color:rgba(29,58,95,.35);">@heymuster</a>
     </nav>
   </header>
@@ -199,6 +215,9 @@ const dayStr = String(log.day).padStart(2, '0');
       <ul style="margin:0;padding:12px 18px 14px 32px;display:grid;gap:9px;font-size:12px;line-height:1.65;color:rgba(29,58,95,.85);">
         {log.corrections.map(c => <li>{c}</li>)}
       </ul>
+      <div style="padding:0 18px 14px;font-size:12px;line-height:1.65;">
+        <a href="/quiet">Field notes no. 001 — the best agent is the one you never hear from →</a>
+      </div>
     </div>
   </section>
 
