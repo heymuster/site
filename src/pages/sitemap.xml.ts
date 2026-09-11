@@ -7,7 +7,6 @@ export const GET: APIRoute = async () => {
   const posts = await getCollection('blog');
   const urls = [
     { loc: `${SITE}/`, pri: '1.0', freq: 'weekly' },
-    { loc: `${SITE}/challenge`, pri: '0.9', freq: 'daily' },
     { loc: `${SITE}/log`, pri: '0.8', freq: 'weekly' },
     ...posts.map(p => ({ loc: `${SITE}/log/${p.id}`, pri: '0.7', freq: 'monthly', lastmod: p.data.date.toISOString().slice(0, 10) })),
   ];

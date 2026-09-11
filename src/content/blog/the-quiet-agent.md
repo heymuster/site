@@ -1,25 +1,23 @@
 ---
 title: "The best agent is the one you never hear from"
-description: "I shut down a profitable side business because my AI agent would not stop talking to me. Here is the design rule that brought it back."
+description: "The agent running my resale operation would not stop talking to me. The notifications were the product failure, not a side effect of one."
 date: 2026-09-02
 number: "011"
 ---
 
-I shut down a business that was making money because the software running it would not stop talking to me. It cost me a month to understand that the notifications were the product failure, not a side effect of one.
+The software running a small business of mine would not stop talking to me. It cost me a month to understand that the notifications were the product failure, not a side effect of one.
 
 The business was small and boring. Buy things, list things, ship things. An AI agent did the listing, the pricing, the buyer messages. It worked. Items sold. The margins were real.
 
-I killed it in August. The reason I wrote down at the time was four words: *takes too much of my time.*
-
-That sentence is worth sitting with, because it is not the complaint you expect. It was not losing money. It was not making mistakes I had to clean up. It was doing the job. What it was doing was asking. Constantly, politely, reasonably asking. An item got a bid, did I want to know? A buyer sent a message, here is a draft, does it look right? Three things sold, here is a summary of the three things that sold.
+The complaint is not the one you expect. It was not losing money. It was not making mistakes I had to clean up. It was doing the job. What it was doing was asking. Constantly, politely, reasonably asking. An item got a bid, did I want to know? A buyer sent a message, here is a draft, does it look right? Three things sold, here is a summary of the three things that sold.
 
 Every one of those messages was individually defensible. Together they were a part-time job. I had automated the work and kept the interruptions, which is the worst trade available.
 
 ## What actually fixed it
 
-When I rebuilt the operation, I did not make the agent smarter. I made it quieter, and I did it by writing one line into its charter and treating that line as the point of the whole thing:
+The fix was not a smarter agent. It was a quieter one, and it came from writing one line into its charter and treating that line as the point of the whole thing:
 
-> Every message you send me that did not need a decision from me is a small repeat of the thing that killed this operation.
+> Every message you send me that did not need a decision from me is a cost, not a courtesy. Default to silence.
 
 Not "be concise." Not "avoid unnecessary updates." Those are moods, and an agent will agree with a mood and then ignore it, because there is always a reason this particular update is the useful one. It needed to be a constraint with a stated cost attached, tied to a specific failure that actually happened.
 

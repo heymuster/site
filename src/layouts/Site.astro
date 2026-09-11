@@ -11,9 +11,8 @@ const { title, description, path, ogTitle, narrow, schema } = Astro.props;
 const site = 'https://heymuster.com';
 const canonical = site + path;
 const nav = [
-  { href: '/', label: 'Fleet Kit' },
+  { href: '/', label: 'Muster' },
   { href: '/log', label: 'The Log' },
-  { href: '/challenge', label: 'The Challenge' },
 ];
 const baseSchema = {
   '@context': 'https://schema.org',
@@ -171,9 +170,8 @@ const baseSchema = {
   <footer class="site">
     <span>Muster</span>
     <div style="display:flex;flex-wrap:wrap;gap:10px 22px;">
-      <a href="/">Fleet Kit</a>
+      <a href="/">Muster</a>
       <a href="/log">The Log</a>
-      <a href="/challenge">The Challenge</a>
       <a href="https://x.com/heymuster">@heymuster</a>
     </div>
     <span style="color:var(--ink-45);">A real car, a real gap, real numbers.</span>

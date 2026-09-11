@@ -41,6 +41,6 @@ Mine has a specific ban on a pattern I kept seeing: a complete, correct answer, 
 
 ## The cost of getting this wrong
 
-Two days after this exchange I shut the whole operation down. Not because it lost money — it was making money. Because it took too much of my time, and messages like that Saturday one were most of the time it took.
+Nothing dramatic happens. That is the problem. No single message in this pattern is bad enough to act on, so nobody acts on it, and the agent goes on spending the one thing it was built to give back.
 
-The rebuild is the entire subject of [the first field note](/log/the-quiet-agent). The short version: every message that did not need a decision is a small repeat of the thing that killed it.
+Add up a week of them and you have quietly re-hired yourself into the job you automated. The fix is the subject of [the first field note](/log/the-quiet-agent): every message that did not need a decision from you is a cost, not a courtesy.
