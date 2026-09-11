@@ -196,12 +196,8 @@ the stop signal, not the excuse.</code></pre>
         <p style="margin-top:12px;font-size:15.5px;line-height:1.65;color:rgba(244,241,232,.82);max-width:44ch;">Leave an address and we will tell you the day the manual ships and the day the software opens, and send the field notes as they are written. Two or three mails a month at most.</p>
       </div>
       <div>
-        <form id="mform" style="display:flex;flex-wrap:wrap;gap:10px;">
-          <input id="mmail" type="email" name="email_address" required placeholder="you@work.com" aria-label="Email address"
-            style="flex:1 1 180px;min-width:0;min-height:48px;padding:13px 14px;border:1px solid rgba(244,241,232,.55);background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;" />
-          <button id="mbtn" type="submit" class="btn btn-light" style="cursor:pointer;">Join</button>
-        </form>
-        <p id="mnote" role="status" aria-live="polite" style="margin-top:11px;font-family:var(--mono);font-size:11.5px;color:rgba(244,241,232,.65);min-height:16px;">No spam, no sequence, unsubscribe in one click.</p>
+        <script is:inline async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="beca82c1-fe15-4955-8cf3-8ff9f4706963"></script>
+        <p style="margin-top:11px;font-family:var(--mono);font-size:11.5px;color:rgba(244,241,232,.65);min-height:16px;">No spam, no sequence, unsubscribe in one click.</p>
       </div>
     </div>
   </section>
@@ -225,31 +221,5 @@ the stop signal, not the excuse.</code></pre>
     <p class="small" style="margin-top:14px;text-align:center;">Everything in it is running in production here first, including the parts that went wrong. <a href="/log">Read the field notes.</a></p>
   </section>
 
-  <script is:inline>
-    (function(){
-      var f=document.getElementById('mform'); if(!f) return;
-      var note=document.getElementById('mnote'), btn=document.getElementById('mbtn'), mail=document.getElementById('mmail');
-      f.addEventListener('submit',function(ev){
-        ev.preventDefault();
-        var email=(mail.value||'').trim(); if(!email) return;
-        btn.disabled=true; note.textContent='Filing…';
-        var body=new URLSearchParams();
-        body.append('email_address',email);
-        body.append('fields[source]','muster');
-        fetch('https://app.kit.com/forms/9535380/subscriptions',{
-          method:'POST',
-          headers:{'X-Requested-With':'XMLHttpRequest','Accept':'application/json','Content-Type':'application/x-www-form-urlencoded'},
-          body:body.toString()
-        }).then(function(r){return r.json();}).then(function(d){
-          if(d && d.status==='quarantined' && d.url){ window.location.href=d.url; return; }
-          f.style.display='none';
-          note.textContent='On the list. You will hear from us when there is something to say.';
-        }).catch(function(){
-          btn.disabled=false;
-          note.textContent='That did not go through. Try again in a moment.';
-        });
-      });
-    })();
-  </script>
 
 </Site>
