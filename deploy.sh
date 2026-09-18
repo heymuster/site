@@ -2,10 +2,13 @@
 # Deploy heymuster.com. Build → Bunny storage zone "heymuster" (id 1797602) → purge pull zone 6442869.
 # Storage password + API key come from sops; nothing is hardcoded.
 set -euo pipefail
-SECRETS="$HOME/Fleet/Credentials/louie/secrets/wolfgang.yaml"
+# wolfgang.yaml went Wolfgang-only on 2026-09-12, so griff cannot open it. Prefer a
+# scoped griff.yaml holding just the two Bunny values; fall back so Wolfgang's own runs
+# keep working unchanged.
+SECRETS="$HOME/Fleet/Credentials/louie/secrets/griff.yaml"
+[ -f "$SECRETS" ] || SECRETS="$HOME/Fleet/Credentials/louie/secrets/wolfgang.yaml"
 cd "$(dirname "$0")"
 npm run build >/dev/null
-cp public/tracker.json dist/tracker.json 2>/dev/null || true
 SPW=$(sops -d --extract '["BUNNY_STORAGE_HEYMUSTER"]' "$SECRETS" 2>/dev/null || true)
 if [ -z "${SPW:-}" ]; then
   APIKEY=$(sops -d --extract '["BUNNY_RUDDER_API_KEY"]' "$SECRETS")
