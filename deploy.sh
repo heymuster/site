@@ -2,11 +2,22 @@
 # Deploy heymuster.com. Build → Bunny storage zone "heymuster" (id 1797602) → purge pull zone 6442869.
 # Storage password + API key come from sops; nothing is hardcoded.
 set -euo pipefail
-# wolfgang.yaml went Wolfgang-only on 2026-09-12, so griff cannot open it. Prefer a
-# scoped griff.yaml holding just the two Bunny values; fall back so Wolfgang's own runs
-# keep working unchanged.
-SECRETS="$HOME/Fleet/Credentials/louie/secrets/griff.yaml"
-[ -f "$SECRETS" ] || SECRETS="$HOME/Fleet/Credentials/louie/secrets/wolfgang.yaml"
+# The secrets tree moved on 2026-09-19: Credentials/louie/secrets/ -> Credentials/secrets/,
+# and wolfgang.yaml went with it. griff.yaml under the default sops rule is the supported
+# source; the old paths are kept as fallbacks only so nothing silently changes behaviour on
+# a box where the move has not happened.
+SECRETS="$HOME/Fleet/Credentials/secrets/griff.yaml"
+for c in "$HOME/Fleet/Credentials/louie/secrets/griff.yaml" \
+         "$HOME/Fleet/Credentials/secrets/wolfgang.yaml" \
+         "$HOME/Fleet/Credentials/louie/secrets/wolfgang.yaml"; do
+  [ -f "$SECRETS" ] && break
+  SECRETS="$c"
+done
+if [ ! -f "$SECRETS" ]; then
+  echo "deploy: no readable secrets file. Expected $HOME/Fleet/Credentials/secrets/griff.yaml" >&2
+  echo "        holding BUNNY_RUDDER_API_KEY. Nothing was built or uploaded." >&2
+  exit 1
+fi
 cd "$(dirname "$0")"
 npm run build >/dev/null
 SPW=$(sops -d --extract '["BUNNY_STORAGE_HEYMUSTER"]' "$SECRETS" 2>/dev/null || true)
